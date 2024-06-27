@@ -33,40 +33,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create path edges
     function createPath() {
-        const pathPoints = [
-            { x: 100, y: 0 },
-            { x: 100, y: 300 },
-            { x: 400, y: 600 },
-            { x: 700, y: 300 },
-            { x: 800, y: 800 },
-            { x: 1080, y: 1080 }
-        ];
+      const rows = 100;
+const columns = 100;
+const spacing = 50; // Noktalar arasındaki boşluk
 
-        const pathEdges = [];
-        for (let i = 0; i < pathPoints.length - 1; i++) {
-            const p1 = pathPoints[i];
-            const p2 = pathPoints[i + 1];
-            const edgeLeft = Bodies.rectangle((p1.x + p2.x) / 2 - pathWidth / 2 * Math.sin(Math.atan2(p2.y - p1.y, p2.x - p1.x)), (p1.y + p2.y) / 2 + pathWidth / 2 * Math.cos(Math.atan2(p2.y - p1.y, p2.x - p1.x)), Math.hypot(p2.x - p1.x, p2.y - p1.y), 10, {
-                isStatic: true,
-                angle: Math.atan2(p2.y - p1.y, p2.x - p1.x),
-                render: { fillStyle: 'black' }
-            });
-            const edgeRight = Bodies.rectangle((p1.x + p2.x) / 2 + pathWidth / 2 * Math.sin(Math.atan2(p2.y - p1.y, p2.x - p1.x)), (p1.y + p2.y) / 2 - pathWidth / 2 * Math.cos(Math.atan2(p2.y - p1.y, p2.x - p1.x)), Math.hypot(p2.x - p1.x, p2.y - p1.y), 10, {
-                isStatic: true,
-                angle: Math.atan2(p2.y - p1.y, p2.x - p1.x),
-                render: { fillStyle: 'black' }
-            });
-            pathEdges.push(edgeLeft, edgeRight);
-        }
+// Noktaları oluştur
+const points = [];
+for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < columns; j++) {
+        const x = j * spacing + 50; // 50 piksel offset ile hizalama
+        const y = i * spacing + 50; // 50 piksel offset ile hizalama
+        const point = Bodies.circle(x, y, 5, {
+            isStatic: true,
+            render: {
+                fillStyle: 'black'
+            }
+        });
+        points.push(point);
+    }
+}
 
-        World.add(world, pathEdges);
+// Noktaları dünyaya ekle
+World.add(world, points);
     }
 
     // Create marbles
     function createMarbles() {
         marbles = colors.map((color, index) => {
-            const x = 100 + index * (2 * radius + 20);
-            const y = 50;
+            const x = 400 + index * (2 * radius + 20);
+            const y = 20;
             return Bodies.circle(x, y, radius, {
                 restitution: 0.9,
                 render: { fillStyle: color }
