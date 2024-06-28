@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createPath() {
       const rows = 100;
 const columns = 100;
-const spacing = 50; // Noktalar arasındaki boşluk
+const spacing = 65; // Noktalar arasındaki boşluk
 
 // Noktaları oluştur
 const points = [];
