@@ -26,11 +26,28 @@
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="1080" height="1080"></canvas>
-    <button id="startButton">Başla</button>
-    <div id="winner"></div>
+<div>
+    <label for="colorSelect">Renk Seç:</label>
+    <select id="colorSelect">
+        <option value="red">Kırmızı</option>
+        <option value="blue">Mavi</option>
+        <option value="green">Yeşil</option>
+        <option value="yellow">Sarı</option>
+        <option value="purple">Mor</option>
+        <option value="orange">Turuncu</option>
+        <option value="pink">Pembe</option>
+    </select>
+    <label for="betAmount">Yatırılacak Miktar:</label>
+    <input type="number" id="betAmount" min="1" max="100" value="10">
+    <button id="betButton">Bahis Yap</button>
+</div>
+<canvas id="gameCanvas" width="1080" height="1080"></canvas>
+<button id="startButton">Başla</button>
+<div id="winner"></div>
+<div id="balance">Bakiye: 100</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
-    <script src="game.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
+<script src="game.js"></script>
+<script src="ui.js"></script>
 </body>
 </html>

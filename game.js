@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const { Engine, Render, Runner, Bodies, Composite, World, Events } = Matter;
+    const { Engine, Render, Runner, Bodies, Composite, World, Events, Body } = Matter;
 
     const canvas = document.getElementById('gameCanvas');
     const startButton = document.getElementById('startButton');
@@ -31,31 +31,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create runner
     const runner = Runner.create();
 
-    // Create path edges
+    // Create random path points
     function createPath() {
-      const rows = 100;
-const columns = 100;
-const spacing = 65; // Noktalar arasındaki boşluk
+        const rows = 100;
+        const columns = 100;
+        const spacing = 65; // Noktalar arasındaki boşluk
 
-// Noktaları oluştur
-const points = [];
-
-for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < columns; j++) {
-        const x = j * spacing + Math.random() * spacing; // rastgele hizalama
-        const y = i * spacing + Math.random() * spacing; // rastgele hizalama
-        const point = Bodies.circle(x, y, 5, {
-            isStatic: true,
-            render: {
-                fillStyle: 'black'
+        // Noktaları oluştur
+        const points = [];
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < columns; j++) {
+                const x = j * spacing + Math.random() * spacing; // Rastgele x konumu
+                const y = i * spacing + Math.random() * spacing; // Rastgele y konumu
+                const point = Bodies.circle(x, y, 5, {
+                    isStatic: true,
+                    render: {
+                        fillStyle: 'black'
+                    }
+                });
+                points.push(point);
             }
-        });
-        points.push(point);
-    }
-}
+        }
 
-// Noktaları dünyaya ekle
-World.add(world, points);
+        // Noktaları dünyaya ekle
+        World.add(world, points);
     }
 
     // Create marbles
@@ -89,6 +88,7 @@ World.add(world, points);
                     isRaceStarted = false;
                     winnerDiv.textContent = `Kazanan: ${winningMarble.render.fillStyle}`;
                     Runner.stop(runner);
+                    window.handleWin(winningMarble.render.fillStyle);
                 }
             }
         });
@@ -122,7 +122,7 @@ World.add(world, points);
         }
     }
 
-    startButton.addEventListener('click', startRace);
+    window.startRace = startRace;
 
     Render.run(render);
     initializeGame();
