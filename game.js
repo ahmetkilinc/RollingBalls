@@ -39,10 +39,11 @@ const spacing = 50; // Noktalar arasındaki boşluk
 
 // Noktaları oluştur
 const points = [];
+
 for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
-        const x = j * spacing + 50; // 50 piksel offset ile hizalama
-        const y = i * spacing + 50; // 50 piksel offset ile hizalama
+        const x = j * spacing + Math.random() * spacing; // rastgele hizalama
+        const y = i * spacing + Math.random() * spacing; // rastgele hizalama
         const point = Bodies.circle(x, y, 5, {
             isStatic: true,
             render: {
